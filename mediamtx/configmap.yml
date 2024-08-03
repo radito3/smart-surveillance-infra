@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mediamtx-config
+  namespace: hub
+data:
+  mediamtx.yml: |
+    # TODO: copy the media mtx config 
+    key: value

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediamtx-deployment
+  namespace: hub
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mediamtx
+  template:
+    metadata:
+      labels:
+        app: mediamtx
+    spec:
+      containers:
+      - name: mediamtx-container
+        image: bluenviron/mediamtx:latest-ffmpeg
+        ports:
+        - containerPort: 8080
+        - containerPort: 8554
+        - containerPort: 8089
+        - containerPort: 8088
+        - containerPort: 9774
+        volumeMounts:
+        - name: mediamtx-config
+          mountPath: /usr/etc/mediamtx.yml
+          subPath: mediamtx.yml
+          readOnly: true
+      volumes:
+      - name: mediamtx-config
+        configMap:
+          name: mediamtx-config
