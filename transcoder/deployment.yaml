@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ffmpeg-transcoder
+  labels:
+    app: ffmpeg-transcoder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ffmpeg-transcoder
+  template:
+    metadata:
+      labels:
+        app: ffmpeg-transcoder
+    spec:
+      containers:
+      - name: ffmpeg-nginx
+        image: ffmpeg-nginx:latest
+        args: ["<RTSP/RTMP input stream URL>"]
+        ports:
+        - containerPort: 1935  # RTMP
+        - containerPort: 8080  # HLS and DASH
+        - containerPort: 8554  # RTSP
+        - containerPort: 8004  # WebRTC
+        volumeMounts:
+        - name: hls-storage
+          mountPath: /var/www/hls
+        - name: dash-storage
+          mountPath: /var/www/dash
+      volumes:
+      - name: hls-storage
+        emptyDir: {}
+      - name: dash-storage
+        emptyDir: {}
