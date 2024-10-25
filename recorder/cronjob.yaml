@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: log-processing-job
+spec:
+  schedule: "*/15 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: log-processor
+            image: ffmpeg:latest
+            command: 
+              - /bin/sh
+              - -c
+              - |
+                head -n -1 file_log.txt > file_log_temp.txt && \
+                ffmpeg -f concat -safe 0 -i file_log_temp.txt -c copy output_combined.mp4
+            volumeMounts:
+            - name: log-volume
+              mountPath: /
+          restartPolicy: OnFailure
+          volumes:
+          - name: log-volume
+            hostPath:
+              path: /path/to/logs  # TODO: must be the same as the deployment's
