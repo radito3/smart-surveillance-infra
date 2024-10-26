@@ -390,7 +390,7 @@ webrtcTrackGatherTimeout: 2s
 # Global settings -> SRT server
 
 # Enable publishing and reading streams with the SRT protocol.
-srt: yes
+srt: no
 # Address of the SRT listener.
 srtAddress: :8890
 
@@ -431,7 +431,7 @@ pathDefaults:
   sourceFingerprint:
   # If the source is a URL, it will be pulled only when at least
   # one reader is connected, saving bandwidth.
-  sourceOnDemand: no
+  sourceOnDemand: yes
   # If sourceOnDemand is "yes", readers will be put on hold until the source is
   # ready or until this amount of time has passed.
   sourceOnDemandStartTimeout: 10s
@@ -439,7 +439,7 @@ pathDefaults:
   # readers connected and this amount of time has passed.
   sourceOnDemandCloseAfter: 10s
   # Maximum number of readers. Zero means no limit.
-  maxReaders: 0
+  maxReaders: 5
   # SRT encryption passphrase require to read from this path
   srtReadPassphrase:
   # If the stream is not available, redirect readers to this path.
@@ -473,7 +473,7 @@ pathDefaults:
   # Default path settings -> Publisher source (when source is "publisher")
 
   # Allow another client to disconnect the current publisher and publish in its place.
-  overridePublisher: yes
+  overridePublisher: no
   # SRT encryption passphrase required to publish to this path
   srtPublishPassphrase:
 
@@ -697,29 +697,13 @@ paths:
     maxReaders: 3
     rpiCameraFPS: 24
 
-  # in video proxy
-  compressed1:
-    source: publisher
-    # default settings
-  original1:
-    source: rtsp://media-server.k8s.internal:8554/source
-    # TODO: support encryption
-    runOnReady: >
-      ffmpeg -i rtsp://localhost:$RTSP_PORT/$MTX_PATH
-        -pix_fmt yuv420p -c:v libx264 -preset ultrafast -b:v 600k
-        -max_muxing_queue_size 1024 -f rtsp rtsp://localhost:$RTSP_PORT/compressed
-    runOnReadyRestart: yes
-  # for multiple bitrates, mediamtx supports multiple paths reading from the same source
-  compressed2:
-    source: publisher
-    # default settings
-  original2:
-    source: rtsp://media-server.k8s.internal:8554/source
-    runOnReady: >
-      ffmpeg -i rtsp://localhost:$RTSP_PORT/$MTX_PATH
-        -pix_fmt yuv420p -c:v libx264 -b:v 200k
-        -max_muxing_queue_size 1024 -f rtsp rtsp://localhost:$RTSP_PORT/compressed
-    runOnReadyRestart: yes
+  cam:
+    runOnInit: ffmpeg -f v4l2 -i /dev/video0 -c:v libx264 -pix_fmt yuv420p -preset ultrafast -b:v 600k -f rtsp rtsp://localhost:$RTSP_PORT/$MTX_PATH
+    runOnInitRestart: yes
+
+  proxied:
+    # WebRTC url of the source stream, in the format whep://host:port/path (HTTP) or wheps:// (HTTPS)
+    source: wheps://host:port/path
 
   # Settings under path "all_others" are applied to all paths that
   # do not match another entry.
