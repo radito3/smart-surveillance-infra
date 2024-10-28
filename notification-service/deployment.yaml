@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+  namespace: hub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+        - name: notification-service
+          image: my-custom-notif-service:latest # TODO: replace
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: private-key-volume
+              mountPath: "/etc/private-key"
+              readOnly: true
+      volumes:
+        - name: private-key-volume
+          secret:
+            secretName: creds-encryption-key
