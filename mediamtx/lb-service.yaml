@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mediamtx-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: mediamtx
+  ports:
+    - port: 8000 # RTP/UDP
+      targetPort: 8000
+    - port: 8001 # RTCP/UDP
+      targetPort: 8001
+    - port: 8554 # RTSP/TCP
+      targetPort: 8554
+    - port: 1935 # RTMP
+      targetPort: 1935
+    - port: 8888 # HLS
+      targetPort: 8888
+    - port: 8889 # WebRTC
+      targetPort: 8889
+    - port: 8080 # proxy container
+      targetPort: 8080

@@ -4,6 +4,7 @@ metadata:
   name: mediamtx
   namespace: hub
 spec:
+  serviceName: "mediamtx-headless"
   replicas: 3
   selector:
     matchLabels:
