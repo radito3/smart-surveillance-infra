@@ -9,10 +9,12 @@ spec:
       containers:
       - name: ui-container
         image: my-custom-ui:latest # TODO: replace with built image
-        env:
-        - name: ENCRYPTION_KEY
-          valueFrom:
-            secretKeyRef:
-              # kubectl create secret generic creds-encryption-key --from-file=private_key.pem -n your-namespace
-              name: creds-encryption-key
-              key: key
+        volumeMounts:
+            - name: public-key-volume
+              mountPath: "/usr/share/nginx/html/config"
+              readOnly: true
+      volumes:
+        # kubectl create secret generic creds-encryption-key --from-file=private_key.pem -n your-namespace
+        - name: public-key-volume
+          secret:
+            secretName: creds-encryption-key
