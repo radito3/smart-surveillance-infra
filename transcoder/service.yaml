@@ -3,20 +3,19 @@ kind: Service
 metadata:
   name: transcoder-service
 spec:
+  type: LoadBalancer
   selector:
     app: ffmpeg-transcoder
   ports:
-    - protocol: TCP
+    - name: rtmp
       port: 1935  # RTMP
       targetPort: 1935
-    - protocol: TCP
+    - name: hls
       port: 8080  # HLS and DASH
       targetPort: 8080
-    - protocol: TCP
+    - name: rtsp
       port: 8554  # RTSP
       targetPort: 8554
-    - protocol: TCP
+    - name: webrtc
       port: 8004  # WebRTC
       targetPort: 8004
-  type: LoadBalancer  # This can be changed to ClusterIP, NodePort, etc.
-  

@@ -1,13 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: notif-service-service
+  name: notification-service
   namespace: hub
 spec:
   selector:
-    app: go-server
+    app: notification-service
   ports:
-    - protocol: TCP
-      port: 80
+    - port: 80
       targetPort: 8080
-  type: ClusterIP

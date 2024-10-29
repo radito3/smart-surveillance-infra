@@ -1,7 +1,8 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: log-processing-job
+  # this won't be needed
+  name: file-merger
 spec:
   schedule: "*/15 * * * *"
   jobTemplate:
@@ -9,7 +10,7 @@ spec:
       template:
         spec:
           containers:
-          - name: log-processor
+          - name: file-merger
             image: ffmpeg:latest
             command: 
               - /bin/sh
@@ -18,10 +19,10 @@ spec:
                 head -n -1 file_log.txt > file_log_temp.txt && \
                 ffmpeg -f concat -safe 0 -i file_log_temp.txt -c copy output_combined.mp4
             volumeMounts:
-            - name: log-volume
+            - name: recordings
               mountPath: /
           restartPolicy: OnFailure
           volumes:
-          - name: log-volume
-            hostPath:
-              path: /path/to/logs  # TODO: must be the same as the deployment's
+          - name: recordings
+            hostPath: # this won't work, as the volume in the STS is an emptyDir
+              path: /recordings
