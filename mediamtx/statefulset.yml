@@ -15,11 +15,13 @@ spec:
         app: mediamtx
     spec:
       containers:
-      - name: mediamtx-container
+      - name: mediamtx
         image: bluenviron/mediamtx:latest-ffmpeg
         ports:
         - containerPort: 8000 # RTP/UDP
+          protocol: UDP
         - containerPort: 8001 # RTCP/UDP
+          protocol: UDP
         - containerPort: 8554 # RTSP/TCP
         - containerPort: 1935 # RTMP
         - containerPort: 8888 # HLS
@@ -32,11 +34,24 @@ spec:
           mountPath: /usr/etc/mediamtx.yml
           subPath: mediamtx.yml
           readOnly: true
-      - name: mediamtx-proxy-container
+        - name: recordings-tmp
+          mountPath: /recordings
+      - name: mediamtx-proxy
         image: radito3/mediamtx-proxy:latest
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /public/ping
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
       volumes:
       - name: mediamtx-config
         configMap:
           name: mediamtx-config
+      - name: recordings-tmp
+        emptyDir: {}

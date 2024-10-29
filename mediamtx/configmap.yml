@@ -132,6 +132,7 @@ data:
       fallback:
 
       record: no
+      recordPath: /recordings/%path/%Y-%m-%d_%H-%M-%S-%f
 
       overridePublisher: no
       srtPublishPassphrase:

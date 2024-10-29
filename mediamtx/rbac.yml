@@ -1,9 +1,11 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: deployment-manager
+  name: mediamtx-role
 rules:
-# temp config
+# TODO: 
+# - deployments: get, list, create
+# - statefulsets: get, list
 - apiGroups: ["apps"]
   resources: ["deployments"]
   verbs: ["create", "get", "list", "watch", "update", "delete"]

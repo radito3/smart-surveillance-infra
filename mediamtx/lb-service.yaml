@@ -9,15 +9,24 @@ spec:
   ports:
     - port: 8000 # RTP/UDP
       targetPort: 8000
+      name: rtp
+      protocol: UDP
     - port: 8001 # RTCP/UDP
       targetPort: 8001
+      name: rtcp
+      protocol: UDP
     - port: 8554 # RTSP/TCP
       targetPort: 8554
+      name: rtsp
     - port: 1935 # RTMP
       targetPort: 1935
+      name: rtmp
     - port: 8888 # HLS
       targetPort: 8888
+      name: hls
     - port: 8889 # WebRTC
       targetPort: 8889
+      name: webrtc
     - port: 8080 # proxy container
       targetPort: 8080
+      name: proxy
