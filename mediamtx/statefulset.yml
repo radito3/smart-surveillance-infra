@@ -37,7 +37,7 @@ spec:
         - name: recordings-tmp
           mountPath: /recordings
       - name: mediamtx-proxy
-        image: radito3/mediamtx-proxy:latest
+        image: radito3/ss-proxy-service:1.0.0
         ports:
         - containerPort: 8080
         livenessProbe:

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: notification-service
-          image: my-custom-notif-service:latest # TODO: replace
+          image: radito3/ss-notification-service:1.0.0
           ports:
             - containerPort: 8080
           volumeMounts:

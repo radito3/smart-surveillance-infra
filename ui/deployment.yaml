@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: ui-container
-        image: my-custom-ui:latest # TODO: replace with built image
+        image: radito3/ss-web-ui:1.0.0
         volumeMounts:
             - name: public-key-volume
               mountPath: "/usr/share/nginx/html/config"
