@@ -17,7 +17,16 @@ spec:
         - name: notification-service
           image: radito3/ss-notification-service:1.0.0
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
+          livenessProbe:
+            httpGet:
+              path: /public/ping
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
           volumeMounts:
             - name: private-key-volume
               mountPath: "/etc/private-key"
