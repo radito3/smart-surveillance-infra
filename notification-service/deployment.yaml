@@ -32,6 +32,7 @@ spec:
               mountPath: "/etc/private-key"
               readOnly: true
       volumes:
+        # kubectl create secret generic creds-encryption-key --from-file=private_key.pem -n hub
         - name: private-key-volume
           secret:
             secretName: creds-encryption-key

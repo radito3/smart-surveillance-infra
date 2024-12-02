@@ -8,5 +8,5 @@ spec:
   selector:
     app: ui
   ports:
-    - port: 80
+    - port: 80 # 4201 for dev
       targetPort: 80

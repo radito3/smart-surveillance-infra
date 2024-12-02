@@ -10,11 +10,11 @@ spec:
       - name: ui-container
         image: radito3/ss-web-ui:1.0.0
         volumeMounts:
-            - name: public-key-volume
-              mountPath: "/usr/share/nginx/html/config"
-              readOnly: true
+          - name: public-key-volume
+            mountPath: "/usr/share/nginx/html/config"
+            readOnly: true
       volumes:
-        # kubectl create secret generic creds-encryption-key --from-file=private_key.pem -n your-namespace
+        # kubectl create secret generic creds-encryption-key --from-file=public_key.pem -n public
         - name: public-key-volume
           secret:
             secretName: creds-encryption-key

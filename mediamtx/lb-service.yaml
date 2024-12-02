@@ -27,6 +27,6 @@ spec:
     - port: 8889 # WebRTC
       targetPort: 8889
       name: webrtc
-    - port: 80 # proxy container
+    - port: 80 # proxy container - 8080 for dev
       targetPort: 8080
       name: proxy
