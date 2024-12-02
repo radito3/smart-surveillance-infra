@@ -26,9 +26,7 @@ spec:
         - containerPort: 1935 # RTMP
         - containerPort: 8888 # HLS
         - containerPort: 8889 # WebRTC
-        # - containerPort: 8089
-        # - containerPort: 8088
-        # - containerPort: 9774
+        - containerPort: 9997 # Control API
         volumeMounts:
         - name: mediamtx-config
           mountPath: /usr/etc/mediamtx.yml
@@ -37,9 +35,12 @@ spec:
         - name: recordings-tmp
           mountPath: /recordings
       - name: mediamtx-proxy
-        image: radito3/ss-proxy-service:1.0.0
+        image: radito3/ss-proxy-service:1.4.0
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: hls-storage
+          mountPath: /app/hls
         livenessProbe:
           httpGet:
             path: /public/ping
@@ -54,4 +55,6 @@ spec:
         configMap:
           name: mediamtx-config
       - name: recordings-tmp
+        emptyDir: {}
+      - name: hls-storage
         emptyDir: {}
