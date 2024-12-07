@@ -2,13 +2,19 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: public
+  labels:
+    public-ns: "true"
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: hub
+  labels:
+    hub-ns: "true"
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: ml-analysis
+  labels:
+    ml-analysis-ns: "true"
