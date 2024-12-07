@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: notification-service
-          image: radito3/ss-notification-service:1.0.0
+          image: radito3/ss-notification-service:1.0.2
           ports:
             - containerPort: 8081
           livenessProbe:
