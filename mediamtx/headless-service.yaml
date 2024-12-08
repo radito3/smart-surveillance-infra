@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mediamtx-headless
+  namespace: hub
 spec:
   clusterIP: None
   selector:

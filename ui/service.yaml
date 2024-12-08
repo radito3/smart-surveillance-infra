@@ -4,7 +4,7 @@ metadata:
   name: ui-service
   namespace: public
 spec:
-  type: LoadBalancer
+  type: LoadBalancer # NodePort for dev
   selector:
     app: ui
   ports:

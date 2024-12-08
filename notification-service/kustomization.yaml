@@ -3,3 +3,12 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
+
+secretGenerator:
+  - name: creds-encryption-key
+    namespace: hub
+    type: Opaque
+    options:
+      disableNameSuffixHash: true
+    files:
+      - private_key.pem

@@ -2,8 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mediamtx
+  namespace: hub
 spec:
-  type: LoadBalancer
+  type: LoadBalancer # NodePort for dev
   selector:
     app: mediamtx
   ports:
