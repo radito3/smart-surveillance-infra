@@ -15,13 +15,4 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          name: hub-ns
-    ports:
-    - protocol: TCP
-      port: 8554
-    - protocol: TCP
-      port: 1935
-    - protocol: UDP
-      port: 8000
-    - protocol: UDP
-      port: 8001
+          name: hub
