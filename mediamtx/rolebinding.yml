@@ -1,11 +1,41 @@
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: mediamtx-role-binding
+# subjects:
+# - kind: ServiceAccount
+#   name: mediamtx-serviceaccount
+#   apiGroup: rbac.authorization.k8s.io
+# roleRef:
+#   kind: ClusterRole
+#   name: mediamtx-role
+#   apiGroup: rbac.authorization.k8s.io
+
+---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
-  name: mediamtx-role-binding
+  name: mediamtx-access
+  namespace: hub
 subjects:
-- kind: ServiceAccount
-  name: mediamtx-serviceaccount
+  - kind: ServiceAccount
+    name: mediamtx-serviceaccount
+    namespace: hub
+roleRef:
+  kind: ClusterRole
+  name: mediamtx-role
   apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: mediamtx-access
+  namespace: ml-analysis
+subjects:
+  - kind: ServiceAccount
+    name: mediamtx-serviceaccount
+    namespace: hub
 roleRef:
   kind: ClusterRole
   name: mediamtx-role

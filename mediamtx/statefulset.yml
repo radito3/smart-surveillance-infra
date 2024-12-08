@@ -4,8 +4,8 @@ metadata:
   name: mediamtx
   namespace: hub
 spec:
-  serviceName: "mediamtx-headless"
-  replicas: 3
+  serviceName: mediamtx-headless
+  replicas: 1
   selector:
     matchLabels:
       app: mediamtx
@@ -14,6 +14,7 @@ spec:
       labels:
         app: mediamtx
     spec:
+      serviceAccountName: mediamtx-serviceaccount
       containers:
       - name: mediamtx
         image: bluenviron/mediamtx:latest-ffmpeg

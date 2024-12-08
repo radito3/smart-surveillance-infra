@@ -4,7 +4,13 @@ metadata:
   name: ui
   namespace: public
 spec:
+  selector:
+    matchLabels:
+      app: ui
   template:
+    metadata:
+      labels:
+        app: ui
     spec:
       containers:
       - name: ui-container
