@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ui-service
+  name: web-ui
   namespace: public
 spec:
   type: LoadBalancer # NodePort for dev

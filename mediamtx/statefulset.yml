@@ -18,6 +18,7 @@ spec:
       containers:
       - name: mediamtx
         image: bluenviron/mediamtx:latest-ffmpeg
+        args: ['/usr/etc/mediamtx.yml']
         ports:
         - containerPort: 8000 # RTP/UDP
           protocol: UDP
