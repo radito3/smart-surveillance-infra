@@ -8,26 +8,26 @@ spec:
   selector:
     app: mediamtx
   ports:
-    - port: 8000 # RTP/UDP
+    - port: 8000
       targetPort: 8000
       name: rtp
       protocol: UDP
-    - port: 8001 # RTCP/UDP
+    - port: 8001
       targetPort: 8001
       name: rtcp
       protocol: UDP
-    - port: 8554 # RTSP/TCP
+    - port: 8554
       targetPort: 8554
       name: rtsp
-    - port: 1935 # RTMP
+    - port: 1935
       targetPort: 1935
       name: rtmp
-    - port: 8888 # HLS
+    - port: 8888
       targetPort: 8888
       name: hls
-    - port: 8889 # WebRTC
+    - port: 8889
       targetPort: 8889
       name: webrtc
-    - port: 80 # proxy container
+    - port: 8080
       targetPort: 8080
       name: proxy
