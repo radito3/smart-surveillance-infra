@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restrict-notification-service-traffic
+  namespace: hub
+spec:
+  podSelector:
+    matchLabels:
+      app: notification-service
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector: {} # allow any pods within the same namespace
+        - namespaceSelector: {} # allow pods from any namespace within the cluster
+  egress:
+    - {}
