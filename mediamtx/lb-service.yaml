@@ -4,7 +4,7 @@ metadata:
   name: mediamtx
   namespace: hub
 spec:
-  type: LoadBalancer # NodePort for dev
+  type: LoadBalancer
   selector:
     app: mediamtx
   ports:
