@@ -35,11 +35,16 @@ spec:
           subPath: mediamtx.yml
           readOnly: true
         - name: recordings-tmp
-          mountPath: /recordings
+          mountPath: /recordings # should the mount paths be root-ed or relative?
+        - name: hls-storage
+          mountPath: /hls
       - name: mediamtx-proxy
         image: radito3/ss-proxy-service:1.4.2
         ports:
         - containerPort: 8080
+        env:
+        - name: ACTIVITY_WHITELIST
+          value: "1-30"
         volumeMounts:
         - name: hls-storage
           mountPath: /app/hls
