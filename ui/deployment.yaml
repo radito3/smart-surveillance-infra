@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ui-container
-        image: radito3/ss-web-ui:1.0.1
+        image: radito3/ss-web-ui:1.0.2
         volumeMounts:
           - name: public-key-volume
             mountPath: "/usr/share/nginx/html/config"
