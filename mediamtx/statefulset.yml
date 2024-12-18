@@ -34,8 +34,8 @@ spec:
           mountPath: /usr/etc/mediamtx.yml
           subPath: mediamtx.yml
           readOnly: true
-        - name: recordings-tmp
-          mountPath: /recordings # should the mount paths be root-ed or relative?
+        - name: recordings
+          mountPath: /recordings
         - name: hls-storage
           mountPath: /hls
       - name: mediamtx-proxy
@@ -45,9 +45,6 @@ spec:
         env:
         - name: ACTIVITY_WHITELIST
           value: "1-30"
-        volumeMounts:
-        - name: hls-storage
-          mountPath: /app/hls
         livenessProbe:
           httpGet:
             path: /public/ping
@@ -61,7 +58,7 @@ spec:
       - name: mediamtx-config
         configMap:
           name: mediamtx-config
-      - name: recordings-tmp
-        emptyDir: {}
+      - name: recordings
+        emptyDir: {} # TODO: change to PersistentVolumeClaim
       - name: hls-storage
         emptyDir: {}
