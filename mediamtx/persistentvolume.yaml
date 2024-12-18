@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mediamtx-persistentvolume
+  namespace: hub
+spec:
+  capacity:
+    storage: 10Gi # will it be enough?
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain # MediaMTX deletes the recordings after 24 hours, so it's okay to leave it as Retain
+  hostPath:
+    path: /tmp/data

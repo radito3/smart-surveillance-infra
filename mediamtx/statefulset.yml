@@ -59,6 +59,7 @@ spec:
         configMap:
           name: mediamtx-config
       - name: recordings
-        emptyDir: {} # TODO: change to PersistentVolumeClaim
+        persistentVolumeClaim:
+          claimName: mediamtx-persistentvolumeclaim
       - name: hls-storage
         emptyDir: {}
