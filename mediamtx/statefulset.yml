@@ -5,7 +5,7 @@ metadata:
   namespace: hub
 spec:
   serviceName: mediamtx-headless
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: mediamtx
@@ -59,7 +59,8 @@ spec:
         configMap:
           name: mediamtx-config
       - name: recordings
-        persistentVolumeClaim:
-          claimName: mediamtx-persistentvolumeclaim
+        emptyDir: {}
+        # persistentVolumeClaim:
+        #   claimName: mediamtx-persistentvolumeclaim
       - name: hls-storage
         emptyDir: {}
