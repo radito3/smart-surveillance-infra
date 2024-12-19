@@ -5,6 +5,7 @@ metadata:
   namespace: hub
 spec:
   serviceName: mediamtx-headless
+  # kubectl autoscale sts mediamtx --cpu-percent=70 --min=1 --max=9
   replicas: 1
   selector:
     matchLabels:
@@ -39,7 +40,7 @@ spec:
         - name: hls-storage
           mountPath: /hls
       - name: mediamtx-proxy
-        image: radito3/ss-proxy-service:1.3.1
+        image: radito3/ss-proxy-service:1.3.2
         ports:
         - containerPort: 8080
         env:
