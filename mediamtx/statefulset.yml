@@ -40,7 +40,7 @@ spec:
         - name: hls-storage
           mountPath: /hls
       - name: mediamtx-proxy
-        image: radito3/ss-proxy-service:1.3.2
+        image: radito3/ss-proxy-service:1.3.3
         ports:
         - containerPort: 8080
         env:
